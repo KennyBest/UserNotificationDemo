@@ -256,6 +256,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(error.localizedDescription)
     }
     
+    // 接收到远程推送
+    
+    /**
+     接收到远程推送后，这里可以获取到推送携带的数据。
+     -param: 远程推送数据字典 包含角标，推送提示音， alert提示信息， 通知标识符， 以及自定义数据
+     字典里面支持的类型 plist支持的类型 + NSNull
+     对比 
+     application(_:didReceiveRemoteNotification:) 只可以在App运行的情况下被调用
+     application(_:didReceiveRemoteNotification:fetchCompletionHandler:) : 不管在前台和后台 只要接收到远程推送 都可以被调用
+     
+     如果用户通过点击显示推送提示框打开app， 在app将进入前台的时候 系统也会调用这个方法 所以 可以根据推送信息更新UI 和 处理业务
+     */
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        print(userInfo)
+        
+    }
+    
+    /**
+     payload格式:
+     
+     {
+     "aps" : {
+     "category" : "NEW_MESSAGE_CATEGORY" //设置分类
+     "alert" : {
+        "title":"This is one title",
+        "body" : "Acme message received from Johnny Appleseed",
+     },
+     "badge" : 3,
+     "sound" : “chime.aiff"
+     },
+     "acme-account" : "jane.appleseed@apple.com",
+     "acme-message" : "message123456"
+     }
+     
+     注意： 通知类别设置
+     */
+    
     
 }
 
